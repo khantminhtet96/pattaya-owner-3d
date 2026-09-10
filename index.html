@@ -4,8 +4,9 @@
 <div class="modal" id="modal"><div class="box g"><h3>✏️ Edit Ticket</h3><input id="name" placeholder="Ticket name"><div class="preview" id="prev">No image selected</div><input id="file" type="file" accept="image/*"><div class="acts"><button onclick="closeM()">Cancel</button><button onclick="saveM()">Save</button></div></div></div>
 <script>
 const D={sale:[['Adult','👨'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],entry:[['Adult','👨‍👩‍👦'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],playing:[['50฿ Activity Ticket','🦴',50],['100฿ Activity Ticket','🦖',100],['200฿ Activity Ticket','🥚',200],['Package A','🎁'],['Package B','🎁'],['Promotion Rider','🏍️']]};
-let S=JSON.parse(localStorage.pdS||'{}'),M=JSON.parse(localStorage.pdM||'{}'),E=JSON.parse(localStorage.pdE||'null'),H=JSON.parse(localStorage.pdH||'[]'),EC=localStorage.pdEC||'';
-let LOGIN_AT=localStorage.pdLoginAt||new Date().toISOString();localStorage.pdLoginAt=LOGIN_AT;if(!Array.isArray(E)){E=E&&typeof E==='object'?[E]:[]}E=E.filter(x=>x&&typeof x==='object').map(x=>({name:String(x.name||'Event Ticket'),qty:Math.max(0,Number(x.qty)||0),img:typeof x.img==='string'?x.img:''}));if(!E.length)E=[{name:'Event Ticket',qty:0,img:''}];if(!Array.isArray(H))H=[];for(let k in D){S[k]??={};M[k]??={}}if(!M.playing[0]||!M.playing[0].img)M.playing[0]={...(M.playing[0]||{}),name:(M.playing[0]&&M.playing[0].name)||'50฿ Activity Ticket',img:(M.playing[0]&&M.playing[0].img)||''};
+function readJSON(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){console.warn('Ignoring invalid saved data:',key,e);return fallback}}
+let S=readJSON('pdS',{}),M=readJSON('pdM',{}),E=readJSON('pdE',null),H=readJSON('pdH',[]),EC=localStorage.getItem('pdEC')||'';
+let LOGIN_AT=localStorage.pdLoginAt||new Date().toISOString();localStorage.pdLoginAt=LOGIN_AT;if(!Array.isArray(E)){E=E&&typeof E==='object'?[E]:[]}E=E.filter(x=>x&&typeof x==='object').map(x=>({name:String(x.name||'Event Ticket'),qty:Math.max(0,Number(x.qty)||0),img:typeof x.img==='string'?x.img:''}));if(!E.length)E=[{name:'Event Ticket',qty:0,img:''}];if(!Array.isArray(H))H=[];if(!S||typeof S!=='object'||Array.isArray(S))S={};if(!M||typeof M!=='object'||Array.isArray(M))M={};for(let k in D){if(!S[k]||typeof S[k]!=='object'||Array.isArray(S[k]))S[k]={};if(!M[k]||typeof M[k]!=='object'||Array.isArray(M[k]))M[k]={}}if(!M.playing[0]||!M.playing[0].img)M.playing[0]={...(M.playing[0]||{}),name:(M.playing[0]&&M.playing[0].name)||'50฿ Activity Ticket',img:(M.playing[0]&&M.playing[0].img)||''};
 const APP=document.getElementById('app');
 let t,i;
 function go(p){
@@ -279,10 +280,14 @@ function home(){APP.innerHTML=nav('home')+hero('✨ TICKET CONTROL CENTER','Good
 function render(){let p=(location.hash||'#home').slice(1)||'home';try{if(['sale','entry','playing'].includes(p))page(p);else if(p=='event')eventPage();else if(p=='scanner')scanner();else if(p=='report')report();else if(p=='event-report')eventReport();else if(p=='sale-report')saleReport();else if(p=='history')history();else if(p=='settings')settings();else home();}catch(err){console.error('Page render error:',err);APP.innerHTML=nav('home')+'<section class="card g" style="margin-top:12px"><h2>Event Ticket Page Error</h2><p>Please tap Event Ticket again.</p><button onclick="go(\'event\')">Open Event Ticket</button></section>';}window.scrollTo(0,0)}
 document.addEventListener('click',function(e){
   const el=e.target.closest('[data-go]');
-  if(el){e.preventDefault();const p=el.getAttribute('data-go');if(p){location.hash=p;return}}
+  if(!el)return;
+  const p=el.getAttribute('data-go');
+  if(!p)return;
+  e.preventDefault();
+  location.hash='#'+p;
+  render();
 });
 window.addEventListener('hashchange',function(){render();window.scrollTo(0,0)});
 window.addEventListener('popstate',function(){render();window.scrollTo(0,0)});
 document.addEventListener('DOMContentLoaded',render);
-render();
 </script></body></html>
