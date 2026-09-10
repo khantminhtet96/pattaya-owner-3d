@@ -1,0 +1,9 @@
+{
+  "name":"Private Owner Control Center",
+  "short_name":"Owner Center",
+  "start_url":".",
+  "display":"standalone",
+  "background_color":"#f6eaff",
+  "theme_color":"#b79cff",
+  "icons":[]
+}
