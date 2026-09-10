@@ -1,0 +1,156 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#b79cff"><title>Pattaya Dinosaur Kingdom</title><style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;color:#28324d;background:linear-gradient(135deg,#fff2a8,#bdeaff,#f2c8ff,#b9ffd9);min-height:100vh}main{max-width:1100px;margin:auto;padding:10px}.g{background:#ffffff75;border:1px solid #fff;border-radius:25px;box-shadow:0 16px 45px #66508022,inset 0 1px #fff;backdrop-filter:blur(20px)}header{padding:14px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:28px;background:#b58af5;border-radius:17px;padding:8px 12px}.brand{display:flex;gap:10px;align-items:center}small{opacity:.55}nav{display:flex;gap:7px;overflow:auto;margin:11px 0}nav a{padding:10px 13px;background:#fff9;border-radius:14px;text-decoration:none;color:#594b7b;font-weight:850;white-space:nowrap}nav a.on{background:linear-gradient(135deg,#9877ef,#d36db4);color:#fff}.hero{padding:22px;margin-bottom:12px}h1{font-size:clamp(40px,7vw,72px);line-height:.9;margin:12px 0}h1 span{color:#956de8}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.card,.ticket{padding:14px}.tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.pic{border-radius:18px;overflow:hidden;background:#fff9;display:flex;justify-content:center;align-items:center;font-size:50px}.pic img{width:100%;height:auto;max-height:none;display:block;object-fit:contain}input,button{font:inherit}input{width:100%;border:0;border-radius:12px;padding:11px;background:#fff9;margin:6px 0}button,.btn{border:0;border-radius:13px;padding:10px 14px;background:linear-gradient(135deg,#9978ee,#d56db6);color:#fff;font-weight:850;cursor:pointer;display:inline-block;text-decoration:none}.total{padding:16px;margin:12px 0;display:flex;justify-content:space-between;font-size:19px;font-weight:900}footer{padding:18px 5px;font-size:10px;opacity:.5}.modal{display:none;position:fixed;inset:0;background:#30204466;align-items:center;justify-content:center;padding:15px;z-index:5}.modal.show{display:flex}.box{padding:18px;width:min(470px,100%)}.preview{max-height:260px;overflow:hidden;border-radius:16px;background:#fff9;margin:6px 0;text-align:center}.preview img{max-width:100%;height:auto;display:block;margin:auto}.acts{display:flex;gap:8px}.acts>*{flex:1}@media(max-width:700px){.tickets,.grid{grid-template-columns:1fr 1fr}}@media(max-width:460px){.tickets,.grid{grid-template-columns:1fr}}
+</style></head><body><main><header class="g"><div class="brand"><div class="logo">🦖</div><div><small>PRIVATE OWNER WEBSITE</small><b>PATTAYA DINOSAUR KINGDOM</b></div></div><b>● OWNER ONLY</b></header><div id="app"></div><footer>Private Owner • Ticket Counter • v2.0</footer></main>
+<div class="modal" id="modal"><div class="box g"><h3>✏️ Edit Ticket</h3><input id="name" placeholder="Ticket name"><div class="preview" id="prev">No image selected</div><input id="file" type="file" accept="image/*"><div class="acts"><button onclick="closeM()">Cancel</button><button onclick="saveM()">Save</button></div></div></div>
+<script>
+const D={sale:[['Adult','👨'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],entry:[['Adult','👨‍👩‍👦'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],playing:[['50฿ Activity Ticket','🦴',50],['100฿ Activity Ticket','🦖',100],['200฿ Activity Ticket','🥚',200],['Package A','🎁'],['Package B','🎁'],['Promotion Rider','🏍️']]};
+let S=JSON.parse(localStorage.pdS||'{}'),M=JSON.parse(localStorage.pdM||'{}'),E=JSON.parse(localStorage.pdE||'null'),H=JSON.parse(localStorage.pdH||'[]'),EC=localStorage.pdEC||'';if(!Array.isArray(E)){E=E&&typeof E==='object'?[E]:[]}E=E.filter(x=>x&&typeof x==='object').map(x=>({name:String(x.name||'Event Ticket'),qty:Math.max(0,Number(x.qty)||0),img:typeof x.img==='string'?x.img:''}));if(!E.length)E=[{name:'Event Ticket',qty:0,img:''}];if(!Array.isArray(H))H=[];for(let k in D){S[k]??={};M[k]??={}}if(!M.playing[0]||!M.playing[0].img)M.playing[0]={...(M.playing[0]||{}),name:(M.playing[0]&&M.playing[0].name)||'50฿ Activity Ticket',img:(M.playing[0]&&M.playing[0].img)||''};
+const APP=document.getElementById('app');
+let t,i;
+function go(p){
+  const allowed=['home','sale','entry','playing','event','scanner','report','event-report','sale-report','history','settings'];
+  if(!allowed.includes(p)) p='home';
+  history.pushState({page:p},'', '#'+p);
+  render();
+}
+function openEvent(){ go('event'); return false; }
+function db(){localStorage.pdS=JSON.stringify(S);localStorage.pdM=JSON.stringify(M);localStorage.pdE=JSON.stringify(E);localStorage.pdH=JSON.stringify(H);localStorage.pdEC=EC}function total(k){return Object.values(S[k]).reduce((a,b)=>a+(+b||0),0)}function nav(a){return '<nav>'+[['home','🏠 Home'],['sale','🎟️ Sale'],['entry','🌿 Entry'],['playing','🦴 Playing'],['event','🎪 Event Ticket'],['scanner','🔎 Scanner'],['report','📊 Reports'],['history','📜 History'],['settings','⚙️ Settings']].map(x=>`<a class="${a==x[0]?'on':''}" href="#${x[0]}" onclick="go('${x[0]}');return false;">${x[1]}</a>`).join('')+`<button type="button" onclick="shareCurrentReport()">📤 Share Report</button></nav>`}
+function hero(x,h,p){return `<section class="hero g"><small>${x}</small><h1>${h}</h1><p>${p}</p></section>`}
+function page(k){
+ let h=k=='sale'?'Sale<br><span>Tickets.</span>':k=='entry'?'Entry<br><span>Tickets.</span>':'Playing<br><span>Tickets.</span>';
+ let extra=k=='sale'?`<section class="card g" style="margin-top:11px"><h3>📊 Sale Ticket Report</h3><p>Create and share the Sale Ticket report separately.</p><button onclick="go('sale-report')">Open Sale Ticket Report</button></section>`:'';
+ APP.innerHTML=nav(k)+hero(k.toUpperCase(),h,'Edit ticket name/image and record quantities below.')+'<div class="tickets" id="list"></div><div class="total g"><span>Total Tickets</span><b id="tot"></b></div>'+extra;
+ document.getElementById('list').innerHTML=D[k].map((x,n)=>{let m=M[k][n]||{};return `<article class="ticket g"><div class="pic">${m.img?`<img src="${m.img}">`:x[1]}</div><small>${x[0]}</small><h3>${m.name||x[0]}</h3>${x[2]?`<b>${x[2]}฿</b>`:''}<input type="number" min="0" value="${S[k][n]||0}" data-i="${n}"><button onclick="edit('${k}',${n})">✏️ Edit Name / Image</button></article>`}).join('');
+ document.getElementById('tot').textContent=total(k);APP.insertAdjacentHTML('beforeend','<section class="card g" style="margin-top:11px"><button onclick="shareCurrentReport()">📤 Share '+(k==='sale'?'Sale':k==='entry'?'Entry':'Playing')+' Report to Social</button></section>');
+ document.getElementById('list').querySelectorAll('input').forEach(q=>q.oninput=()=>{S[k][q.dataset.i]=Math.max(0,+q.value||0);db();document.getElementById('tot').textContent=total(k)})
+}
+function addEvent(){E.push({name:'New Event Ticket',qty:0,img:''});db();eventPage()}
+function saveCenter(){let el=document.getElementById('eventCenter');EC=el?el.value.trim():'';db();alert('Event Location saved');eventPage()}
+function eventPage(){
+  const safeEC=String(EC||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  APP.innerHTML=nav('event')+`<section class="card g" style="margin:12px 0"><h3>📍 Event Location / Center</h3><input id="eventCenter" value="${safeEC}" placeholder="Enter event location / center"><button onclick="saveCenter()">💾 Save Location</button></section>`+hero('🎪 EVENT TICKET','Event<br><span>Tickets.</span>','Manage your event tickets and quantities below.')+`<section class="card g" style="margin:0 0 12px"><h3>📊 Event Ticket Report</h3><p>View and share only the Event Ticket report.</p><button onclick="go('event-report')">📊 Open Event Ticket Report</button></section><div class="tickets" id="list"></div><div class="total g"><span>Total Event Tickets</span><b id="tot"></b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:11px 0"><button onclick="addEvent()">＋ Add Event Ticket</button><button onclick="go('event-report')">📊 Event Ticket Report</button><button onclick="shareEventReport()">📤 Share Report</button></div><section class="card g" style="margin-top:11px"><h3>📊 Event Ticket Report</h3><p>Event Ticket အတွက် သီးသန့် Report Page ပါ။</p><button onclick="go('event-report')">📊 Open Event Ticket Report</button></section>`;
+  const l=document.getElementById('list'),tt=document.getElementById('tot');
+  if(!l||!tt)return;
+  l.innerHTML=E.map((x,n)=>`<article class="ticket g"><div class="pic">${x.img?`<img src="${x.img}" alt="${String(x.name||'Event Ticket').replace(/"/g,'&quot;')}">`:'🎪'}</div><small>Event Ticket</small><h3>${x.name||'Event Ticket'}</h3><input type="number" min="0" value="${x.qty||0}" data-i="${n}"><button onclick="edit('event',${n})">✏️ Edit Name / Image</button></article>`).join('');
+  tt.textContent=E.reduce((a,x)=>a+(+x.qty||0),0);
+  l.querySelectorAll('input').forEach(q=>q.oninput=()=>{E[+q.dataset.i].qty=Math.max(0,+q.value||0);db();tt.textContent=E.reduce((a,x)=>a+(+x.qty||0),0)});
+}
+
+function edit(k,n){t=k;i=n;let x=k=='event'?E[n]:D[k][n],m=k=='event'?x:(M[k][n]||{});document.getElementById('name').value=m.name||x[0];document.getElementById('prev').innerHTML=m.img?`<img src="${m.img}">`:'No image selected';document.getElementById('file').value='';document.getElementById('modal').classList.add('show')}function closeM(){document.getElementById('modal').classList.remove('show')}document.getElementById('file').onchange=()=>{let f=document.getElementById('file').files[0];if(!f)return;let r=new FileReader;r.onload=()=>{let im=new Image;im.onload=()=>{let s=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);document.getElementById('prev').innerHTML=`<img src="${c.toDataURL('image/jpeg',.78)}">`};im.src=r.result};r.readAsDataURL(f)};function saveM(){let nm=document.getElementById('name').value.trim()||'Event Ticket',pv=document.getElementById('prev').querySelector('img'),im=pv?pv.src:'';if(t=='event')E[i]={...E[i],name:nm,img:im};else M[t][i]={name:nm,img:im};db();closeM();render()}
+function calcScan(){let av=document.getElementById('a').value,bv=document.getElementById('b').value;document.getElementById('res').textContent=(+bv>=+av&&av&&bv)?(+bv-+av+1)+' Tickets Sold':'Enter valid numbers'}function scanner(){APP.innerHTML=nav('scanner')+hero('🔎 SCANNER','Ticket<br><span>Scanner.</span>','Start and Last numbers are counted inclusively.')+'<section class=\"card g\"><div class=\"grid\"><input id=\"a\" placeholder=\"Start 0001\"><input id=\"b\" placeholder=\"Last 0020\"></div><button onclick=\"calcScan()\">Calculate</button><h3 id=\"res\">0 Tickets Sold</h3></section>'}function saveToday(){H.unshift({d:new Date().toLocaleString(),s:total('sale'),e:total('entry'),p:total('playing'),v:E.reduce((a,x)=>a+(+x.qty||0),0)});db();alert('Saved')}function resetCounters(){if(confirm('Reset counters?')){for(let k in S)S[k]={};E.forEach(x=>x.qty=0);db();render()}}function currentReportText(){
+ let p=(location.hash||'#home').slice(1)||'home',now=new Date().toLocaleString();
+ let labels={home:'Home',sale:'Sale Ticket',entry:'Entry Ticket',playing:'Playing Ticket',event:'Event Ticket',scanner:'Scanner',report:'Reports',history:'History',settings:'Settings','event-report':'Event Ticket Report','sale-report':'Sale Ticket Report'};
+ if(p==='event-report')return eventReportText();
+ if(p==='sale-report')return saleReportText();
+ let lines=['PATTAYA DINOSAUR KINGDOM',(labels[p]||'Owner Page')+' REPORT','Date: '+now];
+ if(p==='sale'||p==='entry'||p==='playing')lines.push('Tickets: '+total(p));
+ else if(p==='event')lines.push('Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0),'Event Center: '+(EC||'Not set'));
+ else if(p==='home')lines.push('Sale Tickets: '+total('sale'),'Entry Tickets: '+total('entry'),'Playing Tickets: '+total('playing'),'Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0));
+ else lines.push('Page: '+(labels[p]||'Owner Page'));
+ lines.push('','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n');
+}
+async function shareCurrentReport(){
+ let text=currentReportText(),url=location.href;
+ if(navigator.share){try{await navigator.share({title:'Pattaya Dinosaur Kingdom Report',text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text+'\n\n'+url);alert('Report copied. Paste it into LINE, Messenger, WhatsApp, Telegram, Facebook or another Social app.')}catch(e){prompt('Copy this Report:',text+'\n\n'+url)}
+}
+function reportText(){
+ let now=new Date().toLocaleString();
+ let center=EC?String(EC).trim():'';
+ let lines=['PATTAYA DINOSAUR KINGDOM','DAILY TICKET SALES REPORT','Date: '+now];
+ if(center)lines.push('Event Location / Center: '+center);
+ lines.push('','Sale Tickets: '+total('sale'),'Entry Tickets: '+total('entry'),'Playing Tickets: '+total('playing'),'Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0),'Playing Revenue: '+playingRevenue()+'฿');
+ lines.push('','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function reportUrl(){return location.href.split('#')[0]}
+function enc(x){return encodeURIComponent(String(x))}
+async function shareReport(){
+ let text=reportText(), url=reportUrl();
+ if(navigator.share){
+   try{await navigator.share({title:'Pattaya Dinosaur Kingdom - Daily Report',text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}
+ }
+ try{await navigator.clipboard.writeText(text);alert('Report copied. Choose a Social app below and paste the report if needed.')}catch(e){prompt('Copy this report:',text)}
+}
+function shareSocial(type){
+ let text=reportText(),url=reportUrl(),u='';
+ if(type==='facebook')u='https://www.facebook.com/sharer/sharer.php?u='+enc(url)+'&quote='+enc(text);
+ if(type==='line')u='https://social-plugins.line.me/lineit/share?url='+enc(url)+'&text='+enc(text);
+ if(type==='telegram')u='https://t.me/share/url?url='+enc(url)+'&text='+enc(text);
+ if(type==='whatsapp')u='https://wa.me/?text='+enc(text+'\n'+url);
+ if(type==='x')u='https://twitter.com/intent/tweet?text='+enc(text)+'&url='+enc(url);
+ if(type==='email')u='mailto:?subject='+enc('Pattaya Dinosaur Kingdom - Daily Report')+'&body='+enc(text+'\n\n'+url);
+ if(type==='sms')u='sms:?body='+enc(text+'\n'+url);
+ if(u)window.open(u,'_blank','noopener,noreferrer')
+}
+function downloadReport(){
+ let blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download='Pattaya-Dinosaur-Kingdom-Report-'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+function report(){
+ APP.innerHTML=nav('report')+hero('📊 REPORTS','Ticket<br><span>Reports.</span>','Choose a separate report page below.')+
+ `<section class="grid"><div class="card g"><h3>🎪 Event Ticket Report</h3><p>Event ticket quantity, location and sharing.</p><button onclick="go('event-report')">Open Event Ticket Report</button></div><div class="card g"><h3>🎟️ Sale Ticket Report</h3><p>Sale ticket quantities and sharing.</p><button onclick="go('sale-report')">Open Sale Ticket Report</button></div></section>`
+}
+async function shareEventReport(){
+ let text=eventReportText(),url=location.href.split('#')[0];
+ if(navigator.share){try{await navigator.share({title:'Pattaya Dinosaur Kingdom - Event Ticket Report',text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text);alert('Event Ticket Report copied. You can paste it into Social apps.')}catch(e){prompt('Copy Event Ticket Report:',text)}
+}
+function eventReportText(){
+ let now=new Date().toLocaleString(),center=EC?String(EC).trim():'';
+ let totalEvent=E.reduce((a,x)=>a+(+x.qty||0),0);
+ let lines=['PATTAYA DINOSAUR KINGDOM','EVENT TICKET REPORT','Date: '+now];
+ if(center)lines.push('Event Location / Center: '+center);
+ lines.push('','Event Tickets: '+totalEvent,'','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function saleReportText(){
+ let now=new Date().toLocaleString();
+ let lines=['PATTAYA DINOSAUR KINGDOM','SALE TICKET REPORT','Date: '+now];
+ lines.push('','Sale Tickets: '+total('sale'),'','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function reportUrl(){return location.href.split('#')[0]}
+function enc(x){return encodeURIComponent(String(x))}
+async function shareReportText(text,title){
+ let url=reportUrl();
+ if(navigator.share){try{await navigator.share({title:title,text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text);alert('Report copied. Choose a Social app below and paste the report if needed.')}catch(e){prompt('Copy this report:',text)}
+}
+function shareSocialText(type,text,title){
+ let url=reportUrl(),u='';
+ if(type==='facebook')u='https://www.facebook.com/sharer/sharer.php?u='+enc(url)+'&quote='+enc(text);
+ if(type==='line')u='https://social-plugins.line.me/lineit/share?url='+enc(url)+'&text='+enc(text);
+ if(type==='telegram')u='https://t.me/share/url?url='+enc(url)+'&text='+enc(text);
+ if(type==='whatsapp')u='https://wa.me/?text='+enc(text+'\n'+url);
+ if(type==='x')u='https://twitter.com/intent/tweet?text='+enc(text)+'&url='+enc(url);
+ if(type==='email')u='mailto:?subject='+enc(title)+'&body='+enc(text+'\n\n'+url);
+ if(type==='sms')u='sms:?body='+enc(text+'\n'+url);
+ if(u)window.open(u,'_blank','noopener,noreferrer')
+}
+function downloadReportText(text,prefix){
+ let blob=new Blob([text],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download=prefix+'-'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+function reportButtons(text,title,prefix){
+ return '<section class="card g" style="margin-top:11px"><h3>📄 Shareable Report</h3><pre style="white-space:pre-wrap;font:inherit;line-height:1.65;background:rgba(255,255,255,.65);padding:14px;border-radius:14px">'+text+'</pre><button onclick="shareReportText('+JSON.stringify(text)+','+JSON.stringify(title)+')">📤 Share Report</button> <button onclick="downloadReportText('+JSON.stringify(text)+','+JSON.stringify(prefix)+')">⬇️ Save Report</button><p style="margin:10px 0 6px"><b>Social Apps</b> — Direct share</p><div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button onclick="shareSocialText(\'facebook\','+JSON.stringify(text)+','+JSON.stringify(title)+')">📘 Facebook</button><button onclick="shareSocialText(\'line\','+JSON.stringify(text)+','+JSON.stringify(title)+')">💚 LINE</button><button onclick="shareSocialText(\'telegram\','+JSON.stringify(text)+','+JSON.stringify(title)+')">✈️ Telegram</button><button onclick="shareSocialText(\'whatsapp\','+JSON.stringify(text)+','+JSON.stringify(title)+')">🟢 WhatsApp</button><button onclick="shareSocialText(\'x\','+JSON.stringify(text)+','+JSON.stringify(title)+')">𝕏 X</button><button onclick="shareSocialText(\'sms\','+JSON.stringify(text)+','+JSON.stringify(title)+')">💬 SMS</button><button onclick="shareSocialText(\'email\','+JSON.stringify(text)+','+JSON.stringify(title)+')">✉️ Email</button></div><p style="font-size:12px;opacity:.7;margin-bottom:0">📱 Share Report opens your phone Share menu, so installed apps can receive the report.</p></section>'
+}
+function eventReport(){
+ let totalEvent=E.reduce((a,x)=>a+(+x.qty||0),0),center=EC?String(EC).trim():'';
+ APP.innerHTML=nav('event-report')+hero('🎪 EVENT TICKET REPORT','Event<br><span>Report.</span>','Only Event Ticket sales are shown on this page.')+
+ '<section class="grid"><div class="card g"><small>EVENT TICKETS</small><h2>'+totalEvent+'</h2><p>Total Event Tickets</p></div><div class="card g"><small>EVENT CENTER</small><h3>'+(center||'Not set')+'</h3><p>Saved for the Event</p></div></section>'+reportButtons(eventReportText(),'Pattaya Dinosaur Kingdom - Event Ticket Report','Pattaya-Dinosaur-Kingdom-Event-Ticket-Report')
+}
+function saleReport(){
+ let totalSale=total('sale');
+ APP.innerHTML=nav('sale-report')+hero('🎟️ SALE TICKET REPORT','Sale<br><span>Report.</span>','Only Sale Ticket sales are shown on this page.')+
+ '<section class="card g"><small>SALE TICKETS</small><h2>'+totalSale+'</h2><p>Total Sale Tickets</p></section>'+reportButtons(saleReportText(),'Pattaya Dinosaur Kingdom - Sale Ticket Report','Pattaya-Dinosaur-Kingdom-Sale-Ticket-Report')
+}
+function history(){APP.innerHTML=nav('history')+hero('📜 HISTORY','Ticket<br><span>History.</span>','Saved records on this device.')+'<section class=\"card g\">'+(H.length?H.map(x=>`<p>${x.d} — Sale ${x.s} • Entry ${x.e} • Playing ${x.p} • Event ${x.v}</p>`).join(''):'No saved records yet.')+'</section>'}function settings(){APP.innerHTML=nav('settings')+hero('⚙️ SETTINGS','Owner<br><span>Settings.</span>','Images are resized and saved locally.')+'<section class=\"grid\"><div class=\"card g\"><h3>🎪 Event Ticket</h3><a class=\"btn\" href=\"#event\" data-page=\"event\">Open Event Tickets</a></div><div class=\"card g\"><h3>💾 Save Today</h3><button onclick=\"saveToday()\">Save Today</button></div><div class=\"card g\"><h3>🗑️ Reset</h3><button onclick=\"resetCounters()\">Reset Counters</button></div></section>'} 
+function home(){APP.innerHTML=nav('home')+hero('✨ TICKET CONTROL CENTER','Good day,<br><span>Owner.</span>','Choose a dedicated page below.')+'<section class="card g" style="margin-top:11px"><button onclick="shareCurrentReport()">📤 Share Daily Report to Social</button></section><section class="grid">'+[['sale','🎟️ Sale Ticket'],['entry','🌿 Entry Ticket'],['playing','🦴 Playing Ticket'],['event','🎪 Event Ticket'],['scanner','🔎 Scanner'],['event-report','📊 Event Ticket Report'],['sale-report','📊 Sale Ticket Report'],['history','📜 History'],['settings','⚙️ Settings']].map(x=>`<div class="card g"><h3>${x[1]}</h3><a class="btn" href="#${x[0]}" onclick="go('${x[0]}');return false;">Open Page</a></div>`).join('')+'</section>'}
+function render(){let p=(location.hash||'#home').slice(1)||'home';try{if(['sale','entry','playing'].includes(p))page(p);else if(p=='event')eventPage();else if(p=='scanner')scanner();else if(p=='report')report();else if(p=='event-report')eventReport();else if(p=='sale-report')saleReport();else if(p=='history')history();else if(p=='settings')settings();else home();}catch(err){console.error('Page render error:',err);APP.innerHTML=nav('home')+'<section class="card g" style="margin-top:12px"><h2>Event Ticket Page Error</h2><p>Please tap Event Ticket again.</p><button onclick="go(\'event\')">Open Event Ticket</button></section>';}window.scrollTo(0,0)}
+window.addEventListener('hashchange',function(){render();window.scrollTo(0,0)});
+window.addEventListener('popstate',function(){render();window.scrollTo(0,0)});
+document.addEventListener('DOMContentLoaded',render);
+render();
+</script></body></html>
