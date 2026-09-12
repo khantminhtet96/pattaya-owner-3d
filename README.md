@@ -1,18 +1,17 @@
-# Private Owner Control Center
+# Pattaya Dinosaur Kingdom – Owner Control Center v4.0
 
-A standalone responsive web UI inspired by the supplied glassmorphism / colorful 3D reference.
+## Data safety
+- Existing localStorage keys are preserved: `pdS`, `pdM`, `pdE`, `pdH`, `pdEC`, and Owner Gmail.
+- v4.0 adds metadata/backup keys without deleting the existing keys.
+- Ticket quantities and existing history are not reset by the upgrade.
+- Backup & Restore is available in Settings.
+- A safety snapshot is created before reset, daily close reset, import, and manual backup.
 
-## Included
-- Vivid pastel glassmorphism UI
-- 3D pointer tilt cards
-- Floating orb animation
-- Responsive mobile/desktop layout
-- Owner-only visual mode
-- Dashboard / scanner / reports / settings placeholders
-- Local record counter
-- Offline/online status
-- Music-player style control
-- PWA manifest
-
-## Important security note
-This package is a front-end starter. A browser-only "owner password" is not real security because JavaScript can be inspected. If this site will contain private business data, connect it to a real authentication/backend (for example Firebase Authentication + Firestore, or Supabase Auth) before putting sensitive data online.
+## Main features
+- Sale / Entry / Playing / Event ticket quantity and price
+- Automatic per-ticket totals and daily totals
+- Event location and selectable report date
+- Thai Event Ticket report text and image sharing
+- Daily close and history
+- Backup, restore, and last-safety-backup restore
+- Mobile-friendly app-style interface
