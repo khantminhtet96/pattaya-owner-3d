@@ -1,0 +1,296 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#b79cff"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Pattaya Owner"><link rel="manifest" href="./manifest.webmanifest?v=2.2"><link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=2.2"><link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png?v=2.2"><link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png?v=2.2"><title>Pattaya Dinosaur Kingdom</title><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#28324d;background:linear-gradient(135deg,#fff2a8,#bdeaff,#f2c8ff,#b9ffd9);min-height:100vh;-webkit-tap-highlight-color:transparent}button,.btn,a,input{touch-action:manipulation}button:active,.btn:active{transform:scale(.98)}main{max-width:1100px;margin:auto;padding:10px}.g{background:#ffffff75;border:1px solid #fff;border-radius:25px;box-shadow:0 16px 45px #66508022,inset 0 1px #fff;backdrop-filter:blur(20px)}header{padding:14px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:28px;background:#b58af5;border-radius:17px;padding:8px 12px}.brand{display:flex;gap:10px;align-items:center}small{opacity:.55}nav{display:flex;gap:7px;overflow:auto;margin:11px 0;scrollbar-width:none;position:sticky;top:7px;z-index:4;padding:3px}nav::-webkit-scrollbar{display:none}nav a,nav button{padding:10px 13px;background:#ffffffd9;border-radius:14px;text-decoration:none;color:#594b7b;font-weight:850;white-space:nowrap;box-shadow:0 4px 14px #66508012}nav a.on{background:linear-gradient(135deg,#9877ef,#d36db4);color:#fff}.hero{padding:22px;margin-bottom:12px}h1{font-size:clamp(40px,7vw,72px);line-height:.9;margin:12px 0}h1 span{color:#956de8}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.card,.ticket{padding:14px}.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.home-grid .card{padding:11px;border-radius:18px}.home-grid h3{font-size:15px;line-height:1.2;margin:2px 0 8px}.home-grid .btn{width:100%;text-align:center;padding:8px 7px;font-size:13px;border-radius:11px}.home-share{padding:10px!important;margin-top:9px!important}.tickets{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.pic{border-radius:18px;overflow:hidden;background:#fff9;display:flex;justify-content:center;align-items:center;font-size:50px}.pic img{width:100%;height:auto;max-height:none;display:block;object-fit:contain}input,button{font:inherit}input{width:100%;border:0;border-radius:12px;padding:11px;background:#fff9;margin:6px 0}button,.btn{border:0;border-radius:13px;padding:10px 14px;background:linear-gradient(135deg,#9978ee,#d56db6);color:#fff;font-weight:850;cursor:pointer;display:inline-block;text-decoration:none}.total{padding:16px;margin:12px 0;display:flex;justify-content:space-between;font-size:19px;font-weight:900}footer{padding:24px 5px 86px;font-size:10px;opacity:.5;text-align:center}.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:10px 0}.stat{padding:13px;border-radius:18px;text-align:center}.stat b{display:block;font-size:25px;margin-top:3px}.quick-title{margin:14px 2px 8px;font-weight:900}.muted{opacity:.65}.toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%) translateY(20px);background:#28324d;color:#fff;padding:11px 16px;border-radius:999px;font-weight:800;z-index:20;opacity:0;pointer-events:none;transition:.22s;box-shadow:0 10px 30px #0003}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.danger{background:linear-gradient(135deg,#e45d72,#c63d63)!important}.secondary{background:#ffffffd9!important;color:#594b7b!important;border:1px solid #ffffff}.data-row{display:flex;gap:8px;align-items:center}.data-row>*{flex:1}@media(max-width:700px){.stat-grid{grid-template-columns:repeat(2,1fr)}nav{top:4px}body:after{content:"";position:fixed;left:0;right:0;bottom:0;height:64px;background:#ffffffcc;backdrop-filter:blur(14px);z-index:3;border-top:1px solid #fff}.toast{bottom:78px}}.modal{display:none;position:fixed;inset:0;background:#30204466;align-items:center;justify-content:center;padding:15px;z-index:5}.modal.show{display:flex}.box{padding:18px;width:min(470px,100%)}.preview{max-height:260px;overflow:hidden;border-radius:16px;background:#fff9;margin:6px 0;text-align:center}.preview img{max-width:100%;height:auto;display:block;margin:auto}.acts{display:flex;gap:8px}.acts>*{flex:1}@media(max-width:700px){.tickets,.grid{grid-template-columns:1fr 1fr}.home-grid{grid-template-columns:repeat(2,1fr);gap:8px}}@media(max-width:460px){.tickets,.grid{grid-template-columns:1fr}.home-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.home-grid .card{padding:9px}.home-grid h3{font-size:13px}.home-grid .btn{font-size:12px;padding:7px 5px}}
+</style></head><body><main><header class="g"><div class="brand"><div class="logo">🦖</div><div><small>PRIVATE OWNER WEBSITE</small><b>PATTAYA DINOSAUR KINGDOM</b></div></div><b>● OWNER ONLY</b></header><div id="app"></div><footer>Private Owner • Ticket Counter • v3.0</footer></main><div id="toast" class="toast"></div>
+<div class="modal" id="modal"><div class="box g"><h3>✏️ Edit Ticket</h3><input id="name" placeholder="Ticket name"><div class="preview" id="prev">No image selected</div><input id="file" type="file" accept="image/*"><div class="acts"><button onclick="closeM()">Cancel</button><button onclick="saveM()">Save</button></div></div></div>
+<script>
+const D={sale:[['Adult','👨'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],entry:[['Adult','👨‍👩‍👦'],['Kid','🧒'],['Small','👦'],['VIP','⭐'],['Kids Entry Ticket','🎟️']],playing:[['50฿ Activity Ticket','🦴',50],['100฿ Activity Ticket','🦖',100],['200฿ Activity Ticket','🥚',200],['Package A','🎁'],['Package B','🎁'],['Promotion Rider','🏍️']]};
+function readJSON(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch(e){console.warn('Ignoring invalid saved data:',key,e);return fallback}}
+let S=readJSON('pdS',{}),M=readJSON('pdM',{}),E=readJSON('pdE',null),H=readJSON('pdH',[]),EC=localStorage.getItem('pdEC')||'';
+let LOGIN_AT=localStorage.pdLoginAt||new Date().toISOString();localStorage.pdLoginAt=LOGIN_AT;if(!Array.isArray(E)){E=E&&typeof E==='object'?[E]:[]}E=E.filter(x=>x&&typeof x==='object').map(x=>({name:String(x.name||'Event Ticket'),qty:Math.max(0,Number(x.qty)||0),img:typeof x.img==='string'?x.img:''}));if(!E.length)E=[{name:'Event Ticket',qty:0,img:''}];if(!Array.isArray(H))H=[];if(!S||typeof S!=='object'||Array.isArray(S))S={};if(!M||typeof M!=='object'||Array.isArray(M))M={};for(let k in D){if(!S[k]||typeof S[k]!=='object'||Array.isArray(S[k]))S[k]={};if(!M[k]||typeof M[k]!=='object'||Array.isArray(M[k]))M[k]={}}if(!M.playing[0]||!M.playing[0].img)M.playing[0]={...(M.playing[0]||{}),name:(M.playing[0]&&M.playing[0].name)||'50฿ Activity Ticket',img:(M.playing[0]&&M.playing[0].img)||''};
+const APP=document.getElementById('app');
+let t,i;
+function go(p){
+  const allowed=['home','sale','entry','playing','event','scanner','report','event-report','sale-report','history','settings'];
+  if(!allowed.includes(p)) p='home';
+  history.pushState({page:p},'', '#'+p);
+  render();
+}
+function openEvent(){ go('event'); return false; }
+function db(){localStorage.pdS=JSON.stringify(S);localStorage.pdM=JSON.stringify(M);localStorage.pdE=JSON.stringify(E);localStorage.pdH=JSON.stringify(H);localStorage.pdEC=EC}function total(k){return Object.values(S[k]).reduce((a,b)=>a+(+b||0),0)}function nav(a){return '<nav>'+[['home','🏠 Home'],['sale','🎟️ Sale'],['entry','🌿 Entry'],['playing','🦴 Playing'],['event','🎪 Event Ticket'],['scanner','🔎 Scanner'],['report','📊 Reports'],['history','📜 History'],['settings','⚙️ Settings']].map(x=>`<a class="${a==x[0]?'on':''}" href="#${x[0]}" data-go="${x[0]}">${x[1]}</a>`).join('')+`<button type="button" onclick="shareCurrentReport()">📤 Share Report</button></nav>`}
+function hero(x,h,p){return `<section class="hero g"><small>${x}</small><h1>${h}</h1><p>${p}</p></section>`}
+function page(k){
+ let h=k=='sale'?'Sale<br><span>Tickets.</span>':k=='entry'?'Entry<br><span>Tickets.</span>':'Playing<br><span>Tickets.</span>';
+ let extra=k=='sale'?`<section class="card g" style="margin-top:11px"><h3>📊 Sale Ticket Report</h3><p>Create and share the Sale Ticket report separately.</p><button onclick="go('sale-report')">Open Sale Ticket Report</button></section>`:'';
+ APP.innerHTML=nav(k)+hero(k.toUpperCase(),h,'Edit ticket name/image and record quantities below.')+'<div class="tickets" id="list"></div><div class="total g"><span>Total Tickets</span><b id="tot"></b></div>'+extra;
+ document.getElementById('list').innerHTML=D[k].map((x,n)=>{let m=M[k][n]||{};return `<article class="ticket g"><div class="pic">${m.img?`<img src="${m.img}">`:x[1]}</div><small>${x[0]}</small><h3>${m.name||x[0]}</h3>${x[2]?`<b>${x[2]}฿</b>`:''}<input type="number" min="0" value="${S[k][n]||0}" data-i="${n}"><button onclick="edit('${k}',${n})">✏️ Edit Name / Image</button></article>`}).join('');
+ document.getElementById('tot').textContent=total(k);APP.insertAdjacentHTML('beforeend','<section class="card g" style="margin-top:11px"><button onclick="shareReportImage('+JSON.stringify(k)+')">📤 Share Report Image</button></section>');
+ document.getElementById('list').querySelectorAll('input').forEach(q=>q.oninput=()=>{S[k][q.dataset.i]=Math.max(0,+q.value||0);db();document.getElementById('tot').textContent=total(k)})
+}
+function addEvent(){t='event';i=-1;document.getElementById('name').value='';document.getElementById('prev').textContent='No image selected';document.getElementById('file').value='';document.getElementById('modal').classList.add('show')}
+function deleteEvent(n){if(!E[n])return;if(confirm('Delete this Event Ticket?')){E.splice(n,1);if(!E.length)E=[{name:'Event Ticket',qty:0,img:''}];db();eventPage()}}
+function saveCenter(){let el=document.getElementById('eventCenter');EC=el?el.value.trim():'';db();alert('Event Location saved');eventPage()}
+function eventPage(){
+  const safeEC=String(EC||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  APP.innerHTML=nav('event')+`<section class="card g" style="margin:12px 0"><h3>📍 Event Location / Center</h3><input id="eventCenter" value="${safeEC}" placeholder="Enter event location / center"><button onclick="saveCenter()">💾 Save Location</button></section>`+hero('🎪 EVENT TICKET','Event<br><span>Tickets.</span>','Manage your event tickets and quantities below.')+`<section class="card g" style="margin:0 0 12px"><h3>📊 Event Ticket Report</h3><p>View and share only the Event Ticket report.</p><a class="btn" href="#event-report" data-go="event-report">📊 Open Event Ticket Report</a></section><div class="tickets" id="list"></div><div class="total g"><span>Total Event Tickets</span><b id="tot"></b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:11px 0"><button onclick="addEvent()">＋ Add Event Ticket</button><button onclick="go('event-report')">📊 Event Ticket Report</button><button onclick="shareReportImage('event')">📤 Share Event Report Image</button><button onclick="downloadReportImage('event')">⬇️ Save Event Report Image</button></div>`;
+  const l=document.getElementById('list'),tt=document.getElementById('tot');
+  if(!l||!tt)return;
+  l.innerHTML=E.map((x,n)=>`<article class="ticket g"><div class="pic">${x.img?`<img src="${x.img}" alt="${String(x.name||'Event Ticket').replace(/"/g,'&quot;')}">`:'🎪'}</div><small>Event Ticket</small><h3>${x.name||'Event Ticket'}</h3><input type="number" min="0" value="${x.qty||0}" data-i="${n}"><div style="display:flex;gap:8px;flex-wrap:wrap"><button onclick="edit('event',${n})">✏️ Edit Name / Image</button><button onclick="deleteEvent(${n})">🗑️ Delete</button></div></article>`).join('');
+  tt.textContent=E.reduce((a,x)=>a+(+x.qty||0),0);
+  l.querySelectorAll('input').forEach(q=>q.oninput=()=>{E[+q.dataset.i].qty=Math.max(0,+q.value||0);db();tt.textContent=E.reduce((a,x)=>a+(+x.qty||0),0)});
+}
+
+function edit(k,n){t=k;i=n;let x=k=='event'?E[n]:D[k][n],m=k=='event'?x:(M[k][n]||{});document.getElementById('name').value=m.name||x[0];document.getElementById('prev').innerHTML=m.img?`<img src="${m.img}">`:'No image selected';document.getElementById('file').value='';document.getElementById('modal').classList.add('show')}function closeM(){document.getElementById('modal').classList.remove('show')}document.getElementById('file').onchange=()=>{let f=document.getElementById('file').files[0];if(!f)return;let r=new FileReader;r.onload=()=>{let im=new Image;im.onload=()=>{let s=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);document.getElementById('prev').innerHTML=`<img src="${c.toDataURL('image/jpeg',.78)}">`};im.src=r.result};r.readAsDataURL(f)};function saveM(){let nm=document.getElementById('name').value.trim()||'Event Ticket',pv=document.getElementById('prev').querySelector('img'),im=pv?pv.src:'';if(t=='event'){if(i<0)E.push({name:nm,qty:0,img:im});else E[i]={...E[i],name:nm,img:im}}else M[t][i]={name:nm,img:im};db();closeM();render()}
+function calcScan(){let av=document.getElementById('a').value,bv=document.getElementById('b').value;document.getElementById('res').textContent=(+bv>=+av&&av&&bv)?(+bv-+av+1)+' Tickets Sold':'Enter valid numbers'}function scanner(){APP.innerHTML=nav('scanner')+hero('🔎 SCANNER','Ticket<br><span>Scanner.</span>','Start and Last numbers are counted inclusively.')+'<section class=\"card g\"><div class=\"grid\"><input id=\"a\" placeholder=\"Start 0001\"><input id=\"b\" placeholder=\"Last 0020\"></div><button onclick=\"calcScan()\">Calculate</button><h3 id=\"res\">0 Tickets Sold</h3></section>'}function toast(msg){let el=document.getElementById('toast');if(!el)return;el.textContent=msg;el.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.classList.remove('show'),2200)}
+function saveToday(){H.unshift({d:new Date().toLocaleString(),s:total('sale'),e:total('entry'),p:total('playing'),v:E.reduce((a,x)=>a+(+x.qty||0),0)});db();toast('✅ Today saved to History');render()}
+function exportBackup(){let data={version:'3.0',exportedAt:new Date().toISOString(),S,M,E,H,EC,ownerGmail:localStorage.pdOwnerGmail||''};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Pattaya-Dinosaur-Kingdom-Backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('⬇️ Backup downloaded')}
+function importBackup(input){let f=input.files&&input.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!d||typeof d!=='object'||!d.S||!d.M)throw Error('Invalid backup');S=d.S;M=d.M;E=Array.isArray(d.E)?d.E:[];H=Array.isArray(d.H)?d.H:[];EC=String(d.EC||'');if(d.ownerGmail)localStorage.pdOwnerGmail=String(d.ownerGmail);db();toast('✅ Backup restored');setTimeout(render,500)}catch(e){alert('This backup file is not valid.')}input.value=''};r.readAsText(f)}function resetCounters(){if(confirm('Reset counters?')){for(let k in S)S[k]={};E.forEach(x=>x.qty=0);db();toast('🗑️ Counters reset');render()}}function currentReportText(){
+ let p=(location.hash||'#home').slice(1)||'home',now=new Date().toLocaleString();
+ let labels={home:'Home',sale:'Sale Ticket',entry:'Entry Ticket',playing:'Playing Ticket',event:'Event Ticket',scanner:'Scanner',report:'Reports',history:'History',settings:'Settings','event-report':'Event Ticket Report','sale-report':'Sale Ticket Report'};
+ if(p==='event-report')return eventReportText();
+ if(p==='sale-report')return saleReportText();
+ let lines=['PATTAYA DINOSAUR KINGDOM',(labels[p]||'Owner Page')+' REPORT','Date: '+now];
+ if(p==='sale'||p==='entry'||p==='playing')lines.push('Tickets: '+total(p));
+ else if(p==='event')lines.push('Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0),'Event Center: '+(EC||'Not set'));
+ else if(p==='home')lines.push('Sale Tickets: '+total('sale'),'Entry Tickets: '+total('entry'),'Playing Tickets: '+total('playing'),'Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0));
+ else lines.push('Page: '+(labels[p]||'Owner Page'));
+ lines.push('','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n');
+}
+async function shareCurrentReport(){
+ let text=currentReportText(),url=location.href;
+ if(navigator.share){try{await navigator.share({title:'Pattaya Dinosaur Kingdom Report',text,url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text+'\n\n'+url);alert('Report copied. Paste it into LINE, Messenger, WhatsApp, Telegram, Facebook or another Social app.')}catch(e){prompt('Copy this Report:',text+'\n\n'+url)}
+}
+function reportText(){
+ let now=new Date().toLocaleString();
+ let center=EC?String(EC).trim():'';
+ let lines=['PATTAYA DINOSAUR KINGDOM','DAILY TICKET SALES REPORT','Date: '+now];
+ if(center)lines.push('Event Location / Center: '+center);
+ lines.push('','Sale Tickets: '+total('sale'),'Entry Tickets: '+total('entry'),'Playing Tickets: '+total('playing'),'Event Tickets: '+E.reduce((a,x)=>a+(+x.qty||0),0),'Playing : '+playing()+'฿');
+ lines.push('','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function reportUrl(){return location.href.split('#')[0]}
+function enc(x){return encodeURIComponent(String(x))}
+async function shareReport(){
+ let text=reportText(), url=reportUrl();
+ if(navigator.share){
+   try{await navigator.share({title:'Pattaya Dinosaur Kingdom - Daily Report',text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}
+ }
+ try{await navigator.clipboard.writeText(text);alert('Report copied. Choose a Social app below and paste the report if needed.')}catch(e){prompt('Copy this report:',text)}
+}
+function shareSocial(type){
+ let text=reportText(),url=reportUrl(),u='';
+ if(type==='facebook')u='https://www.facebook.com/sharer/sharer.php?u='+enc(url)+'&quote='+enc(text);
+ if(type==='line')u='https://social-plugins.line.me/lineit/share?url='+enc(url)+'&text='+enc(text);
+ if(type==='telegram')u='https://t.me/share/url?url='+enc(url)+'&text='+enc(text);
+ if(type==='whatsapp')u='https://wa.me/?text='+enc(text+'\n'+url);
+ if(type==='x')u='https://twitter.com/intent/tweet?text='+enc(text)+'&url='+enc(url);
+ if(type==='email')u='mailto:?subject='+enc('Pattaya Dinosaur Kingdom - Daily Report')+'&body='+enc(text+'\n\n'+url);
+ if(type==='sms')u='sms:?body='+enc(text+'\n'+url);
+ if(u)window.open(u,'_blank','noopener,noreferrer')
+}
+function downloadReport(){
+ let blob=new Blob([reportText()],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download='Pattaya-Dinosaur-Kingdom-Report-'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+function report(){
+ APP.innerHTML=nav('report')+hero('📊 REPORTS','Ticket<br><span>Reports.</span>','Choose a separate report page below.')+
+ `<section class="grid"><div class="card g"><h3>🎪 Event Ticket Report</h3><p>Event ticket quantity, location and sharing.</p><a class="btn" href="#event-report" data-go="event-report">Open Event Ticket Report</a></div><div class="card g"><h3>🎟️ Sale Ticket Report</h3><p>Sale ticket quantities and sharing.</p><button onclick="go('sale-report')">Open Sale Ticket Report</button></div></section>`
+}
+async function shareEventReport(){
+ let text=eventReportText(),url=location.href.split('#')[0];
+ if(navigator.share){try{await navigator.share({title:'Pattaya Dinosaur Kingdom - Event Ticket Report',text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text);alert('Event Ticket Report copied. You can paste it into Social apps.')}catch(e){prompt('Copy Event Ticket Report:',text)}
+}
+function eventReportText(){
+ let now=new Date().toLocaleString(),center=EC?String(EC).trim():'';
+ let totalEvent=E.reduce((a,x)=>a+(+x.qty||0),0);
+ let lines=['PATTAYA DINOSAUR KINGDOM','EVENT TICKET REPORT','Date: '+now];
+ if(center)lines.push('Event Location / Center: '+center);
+ lines.push('','Event Tickets: '+totalEvent,'','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function saleReportText(){
+ let now=new Date().toLocaleString();
+ let lines=['PATTAYA DINOSAUR KINGDOM','SALE TICKET REPORT','Date: '+now];
+ lines.push('','Sale Tickets: '+total('sale'),'','Thank you - Pattaya Dinosaur Kingdom');
+ return lines.join('\n')
+}
+function reportUrl(){return location.href.split('#')[0]}
+function enc(x){return encodeURIComponent(String(x))}
+async function shareReportText(text,title){
+ let url=reportUrl();
+ if(navigator.share){try{await navigator.share({title:title,text:text,url:url});return}catch(e){if(e&&e.name==='AbortError')return}}
+ try{await navigator.clipboard.writeText(text);alert('Report copied. Choose a Social app below and paste the report if needed.')}catch(e){prompt('Copy this report:',text)}
+}
+function shareSocialText(type,text,title){
+ let url=reportUrl(),u='';
+ if(type==='facebook')u='https://www.facebook.com/sharer/sharer.php?u='+enc(url)+'&quote='+enc(text);
+ if(type==='line')u='https://social-plugins.line.me/lineit/share?url='+enc(url)+'&text='+enc(text);
+ if(type==='telegram')u='https://t.me/share/url?url='+enc(url)+'&text='+enc(text);
+ if(type==='whatsapp')u='https://wa.me/?text='+enc(text+'\n'+url);
+ if(type==='x')u='https://twitter.com/intent/tweet?text='+enc(text)+'&url='+enc(url);
+ if(type==='email')u='mailto:?subject='+enc(title)+'&body='+enc(text+'\n\n'+url);
+ if(type==='sms')u='sms:?body='+enc(text+'\n'+url);
+ if(u)window.open(u,'_blank','noopener,noreferrer')
+}
+function downloadReportText(text,prefix){
+ let blob=new Blob([text],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download=prefix+'-'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+
+function escCanvas(s){return String(s==null?'':s)}
+function imgDataForTicket(kind,n){
+ let m=M[k]&&M[k][n]||{};
+ return (m.img&&String(m.img))||'';
+}
+function ticketRowsForReport(kind){
+ let rows=[];
+ if(kind==='event'){
+   E.forEach((x,n)=>rows.push({name:String(x.name||'Event Ticket'),qty:Math.max(0,Number(x.qty)||0),price:null,img:String(x.img||'')}));
+ }else{
+   let arr=D[k]||[];
+   arr.forEach((x,n)=>{
+     let m=M[k]&&M[k][n]||{};
+     rows.push({name:String(m.name||x[0]||'Ticket'),qty:Math.max(0,Number(S[k]&&S[k][n]||0)),price:x[2]!=null?Number(x[2]):null,img:imgDataForTicket(k,n)});
+   });
+ }
+ return rows;
+}
+function reportKindTitle(kind){
+ if(kind==='event')return 'EVENT TICKET REPORT';
+ if(kind==='sale')return 'SALE TICKET REPORT';
+ if(kind==='entry')return 'ENTRY TICKET REPORT';
+ if(kind==='playing')return 'PLAYING TICKET REPORT';
+ return 'TICKET SALES REPORT';
+}
+function reportLoginDate(){
+ return new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function reportLocation(){
+ return String(EC||'').trim()||'Not set';
+}
+function roundRect(ctx,x,y,w,h,r){
+ ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+}
+function fitText(ctx,txt,maxWidth,font){
+ ctx.font=font;
+ let s=String(txt);
+ if(ctx.measureText(s).width<=maxWidth)return s;
+ while(s.length>3&&ctx.measureText(s+'…').width>maxWidth)s=s.slice(0,-1);
+ return s+'…';
+}
+function loadReportImage(src){
+ return new Promise(resolve=>{
+   if(!src)return resolve(null);
+   let im=new Image();im.onload=()=>resolve(im);im.onerror=()=>resolve(null);im.src=src;
+ });
+}
+async function buildReportImage(kind){
+ const rows=ticketRowsForReport(kind);
+ const W=1080,left=30,cardW=196,gap=12,cols=5,top=620,cardH=355;
+ const rowsCount=Math.max(1,Math.ceil(rows.length/cols)),bottom=285;
+ const H=Math.max(1680,top+rowsCount*cardH+bottom);
+ const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ let bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#bfe9ff');bg.addColorStop(.45,'#f0d8ff');bg.addColorStop(1,'#c9ffe9');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ const headerImg=await loadReportImage('report-header.jpg');
+ if(headerImg){const scale=Math.max(W/headerImg.width,300/headerImg.height),dw=headerImg.width*scale,dh=headerImg.height*scale;ctx.save();ctx.beginPath();ctx.rect(0,0,W,300);ctx.clip();ctx.drawImage(headerImg,(W-dw)/2,(300-dh)/2,dw,dh);ctx.restore()}
+ function panel(x,y,w,h,r=28,fill='#fff',alpha=.95){ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=fill;roundRect(ctx,x,y,w,h,r);ctx.fill();ctx.restore()}
+ function txt(v,x,y,font,fill='#263653',align='left'){ctx.fillStyle=fill;ctx.font=font;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.fillText(String(v),x,y)}
+ function div(x,y,h){ctx.fillStyle='rgba(255,255,255,.5)';ctx.fillRect(x,y,2,h)}
+ panel(25,315,1030,115,30,'#ffffff',.93);
+ txt('PATTAYA DINOSAUR KINGDOM',540,365,'900 38px system-ui','#263653','center');
+ txt(reportKindTitle(kind),540,410,'900 28px system-ui','#7a4dde','center');
+ ctx.fillStyle='#073d4b';roundRect(ctx,25,445,1030,145,30);ctx.fill();
+ txt('📍  EVENT LOCATION',65,485,'800 21px system-ui','#ffe84a');
+ txt(fitText(ctx,reportLocation(),520,'800 28px system-ui'),65,523,'800 28px system-ui','#fff');
+ txt('Pattaya Dinosaur Kingdom',65,560,'500 18px system-ui','#d9f7ff');
+ div(650,467,102);
+ txt('📅  WEBSITE LOGIN DATE',700,485,'800 21px system-ui','#ffe84a');
+ txt(reportLoginDate(),700,523,'800 28px system-ui','#fff');
+ txt(new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),700,560,'500 18px system-ui','#d9f7ff');
+ ctx.fillStyle='#7b4de0';roundRect(ctx,25,605,1030,0,28);ctx.fill();
+
+ const loaded=await Promise.all(rows.map(r=>loadReportImage(r.img)));
+ rows.forEach((r,i)=>{
+   const col=i%cols,row=Math.floor(i/cols),x=left+col*(cardW+gap),y=top+row*cardH;
+   panel(x,y,cardW,cardH,22);
+   ctx.fillStyle=['#1c7eea','#f28b20','#e52f91','#744de1','#18a84c'][col%5];roundRect(ctx,x+7,y+7,cardW-14,42,15);ctx.fill();
+   txt(String(i+1),x+25,y+35,'900 20px system-ui','#fff','center');
+   txt(fitText(ctx,r.name,150,'800 17px system-ui'),x+104,y+34,'800 17px system-ui','#fff','center');
+   const im=loaded[i],ix=x+15,iy=y+62,iw=cardW-30,ih=175;panel(ix,iy,iw,ih,14,'#f8f5ff',1);
+   if(im){const scale=Math.min(iw/im.width,ih/im.height),dw=im.width*scale,dh=im.height*scale;ctx.drawImage(im,ix+(iw-dw)/2,iy+(ih-dh)/2,dw,dh)}
+   else txt('🎟️',x+cardW/2,y+165,'62px sans-serif','#7b4de0','center');
+   txt('Ticket Name',x+cardW/2,y+270,'600 17px system-ui','#56627a','center');
+   txt(fitText(ctx,r.name,170,'800 19px system-ui'),x+cardW/2,y+298,'800 19px system-ui','#263653','center');
+   txt('QUANTITY',x+cardW/2,y+326,'700 16px system-ui','#56627a','center');
+   txt(String(r.qty),x+cardW/2,y+349,'900 28px system-ui','#263653','center');
+ });
+ const totalQty=rows.reduce((a,r)=>a+r.qty,0);
+ const sy=top+rowsCount*cardH+20;panel(25,sy,1030,115,28);
+ txt('TOTAL TICKETS',70,sy+43,'800 22px system-ui','#e6338f');
+ txt(totalQty.toLocaleString(),70,sy+94,'900 50px system-ui','#263653');
+ const mascotY=sy+140;
+ const mascot=await loadReportImage('report-mascot-clean.jpg');
+ panel(25,mascotY,1030,190,28,'#ffffff',.88);
+ if(mascot){const scale=Math.min(470/mascot.width,170/mascot.height),dw=mascot.width*scale,dh=mascot.height*scale;ctx.drawImage(mascot,540,mascotY+10,dw,dh)}
+ txt('✓  Thank you for visiting',60,mascotY+70,'800 30px system-ui','#0d5b68');
+ txt('PATTAYA DINOSAUR KINGDOM',60,mascotY+112,'900 25px system-ui','#263653');
+ txt('We hope you had a great time!',60,mascotY+148,'600 19px system-ui','#53627b');
+ txt('PATTAYA DINOSAUR KINGDOM • REPORT',540,H-35,'700 18px system-ui','#53627b','center');
+ return c;
+}
+async function shareReportImage(kind){
+ const c=await buildReportImage(kind);
+ const blob=await new Promise(resolve=>c.toBlob(resolve,'image/png',1));
+ if(!blob){alert('Could not create the report image.');return}
+ const file=new File([blob],`Pattaya-Dinosaur-Kingdom-${kind}-Report.png`,{type:'image/png'});
+ // IMAGE ONLY: no URL and no text are attached to the share.
+ if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+   try{await navigator.share({files:[file]});return}catch(e){if(e&&e.name==='AbortError')return}
+ }
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=file.name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ alert('Image Share is not supported by this browser. The PNG was saved; share it from your Gallery.');
+}
+function sharePageReport(kind){
+ if(kind==='event')return shareReportImage('event');
+ if(kind==='sale')return shareReportImage('sale');
+ return shareReportImage(kind);
+}
+
+function reportButtons(text,title,prefix,kind){
+ return '<section class="card g" style="margin-top:11px"><h3>🖼️ Save / Share Report Image</h3><p>Report ကို ပုံဖိုင်အဖြစ်ပဲ Save သို့ Share လုပ်နိုင်ပါတယ်။ Social section မပါပါ။</p><button onclick="shareReportImage('+JSON.stringify(kind)+')">📤 Share Report Image</button><button onclick="downloadReportImage('+JSON.stringify(kind)+')">💾 Save Report Image</button></section>'
+}
+async function downloadReportImage(kind){
+ const c=await buildReportImage(kind),blob=await new Promise(resolve=>c.toBlob(resolve,'image/png',1));
+ if(!blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Pattaya-Dinosaur-Kingdom-${kind}-Report.png`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function eventReport(){
+ let totalEvent=E.reduce((a,x)=>a+(+x.qty||0),0),center=EC?String(EC).trim():'';
+ APP.innerHTML=nav('event-report')+hero('🎪 EVENT TICKET REPORT','Event<br><span>Report.</span>','Only Event Ticket sales are shown on this page.')+
+ '<section class="grid"><div class="card g"><small>EVENT TICKETS</small><h2>'+totalEvent+'</h2><p>Total Event Tickets</p></div><div class="card g"><small>EVENT CENTER</small><h3>'+(center||'Not set')+'</h3><p>Saved for the Event</p></div></section><section class="card g" style="margin:12px 0"><h3>🎪 Add / Manage Event Tickets</h3><p>Add a new ticket, change ticket name/image, and enter ticket quantities from the Event Ticket page.</p><a class="btn" href="#event" data-go="event">＋ Open Event Ticket & Add Tickets</a></section>'+reportButtons(eventReportText(),'Pattaya Dinosaur Kingdom - Event Ticket Report','Pattaya-Dinosaur-Kingdom-Event-Ticket-Report','event')
+}
+function saleReport(){
+ let totalSale=total('sale');
+ APP.innerHTML=nav('sale-report')+hero('🎟️ SALE TICKET REPORT','Sale<br><span>Report.</span>','Only Sale Ticket sales are shown on this page.')+
+ '<section class="card g"><small>SALE TICKETS</small><h2>'+totalSale+'</h2><p>Total Sale Tickets</p></section>'+reportButtons(saleReportText(),'Pattaya Dinosaur Kingdom - Sale Ticket Report','Pattaya-Dinosaur-Kingdom-Sale-Ticket-Report','sale')
+}
+function history(){let sum=H.reduce((a,x)=>a+(+x.s||0)+(+x.e||0)+(+x.p||0)+(+x.v||0),0);APP.innerHTML=nav('history')+hero('📜 HISTORY','Ticket<br><span>History.</span>','Saved daily closing records on this device.')+`<section class="stat-grid"><div class="stat card g"><small>Saved Days</small><b>${H.length}</b></div><div class="stat card g"><small>Tickets Recorded</small><b>${sum}</b></div></section><section class="card g">`+(H.length?H.map(x=>`<div style="padding:10px 0;border-bottom:1px solid #ffffff88"><b>${x.d}</b><br><span class="muted">Sale ${x.s} • Entry ${x.e} • Playing ${x.p} • Event ${x.v}</span></div>`).join(''):'<p class="muted">No saved records yet. Use Settings → Save Today after closing the day.</p>')+'</section>'}function saveOwnerGmail(){let el=document.getElementById('ownerGmail');let v=el?String(el.value||'').trim():'';if(v&&!/^[^\s@]+@gmail\.com$/i.test(v)){alert('Please enter a valid Gmail address.');return}localStorage.pdOwnerGmail=v;alert(v?'Owner Gmail saved.':'Owner Gmail removed.');settings()}
+function settings(){let gmail=localStorage.pdOwnerGmail||'';let safe=gmail.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');APP.innerHTML=nav('settings')+hero('⚙️ SETTINGS','Owner<br><span>Settings.</span>','Protect your data and control the website from one place.')+'<section class="grid"><div class="card g" style="grid-column:1/-1"><h3>📧 Owner Gmail</h3><p class="muted">Save the Owner Gmail used for this website.</p><input id="ownerGmail" type="email" inputmode="email" autocomplete="email" placeholder="owner@gmail.com" value="'+safe+'"><button onclick="saveOwnerGmail()">🔗 Save Owner Gmail</button>'+(gmail?'<p style="margin-bottom:0;color:#16803c">✅ Owner Gmail: <b>'+safe+'</b></p>':'<p class="muted" style="margin-bottom:0">No Owner Gmail saved yet.</p>')+'</div><div class="card g"><h3>🎪 Event Ticket</h3><a class="btn" href="#event" data-go="event">Open Event Tickets</a></div><div class="card g"><h3>💾 Daily Close</h3><button onclick="saveToday()">Save Today</button><p class="muted">Save totals to History before resetting.</p></div><div class="card g"><h3>🗑️ Reset</h3><button class="danger" onclick="resetCounters()">Reset Counters</button><p class="muted">Use after Daily Close.</p></div><div class="card g" style="grid-column:1/-1"><h3>🛡️ Backup & Restore</h3><p class="muted">Keep a backup before changing phones, clearing browser data, or making major updates.</p><div class="data-row"><button onclick="exportBackup()">⬇️ Backup Data</button><button class="secondary" onclick="document.getElementById("restoreFile").click()">⬆️ Restore Data</button></div><input id="restoreFile" type="file" accept="application/json" style="display:none" onchange="importBackup(this)"><p class="muted" style="margin-bottom:0">Backup includes tickets, event data, history, location and settings.</p></div></section>'}
+function home(){let st=total('sale'),en=total('entry'),pl=total('playing'),ev=E.reduce((a,x)=>a+(+x.qty||0),0),all=st+en+pl+ev;APP.innerHTML=nav('home')+hero('✨ TICKET CONTROL CENTER','Good day,<br><span>Owner.</span>','Your live ticket dashboard. Changes are saved automatically on this device.')+`<section class="stat-grid"><div class="stat card g"><small>🎟️ Sale</small><b>${st}</b></div><div class="stat card g"><small>🌿 Entry</small><b>${en}</b></div><div class="stat card g"><small>🦴 Playing</small><b>${pl}</b></div><div class="stat card g"><small>🎪 Event</small><b>${ev}</b></div></section><section class="card g home-share"><button style="width:100%" onclick="shareReportImage('sale')">📤 Share Daily Report Image</button><p class="muted" style="margin:8px 2px 0">Today total: <b>${all}</b> tickets</p></section><div class="quick-title">Quick access</div><section class="home-grid">`+[['sale','🎟️ Sale Ticket'],['entry','🌿 Entry Ticket'],['playing','🦴 Playing Ticket'],['event','🎪 Event Ticket'],['scanner','🔎 Scanner'],['event-report','📊 Event Ticket Report'],['sale-report','📊 Sale Ticket Report'],['history','📜 History'],['settings','⚙️ Settings']].map(x=>`<div class="card g"><h3>${x[1]}</h3><a class="btn" href="#${x[0]}" data-go="${x[0]}">Open</a></div>`).join('')+'</section>'}
+function render(){let p=(location.hash||'#home').slice(1)||'home';try{if(['sale','entry','playing'].includes(p))page(p);else if(p=='event')eventPage();else if(p=='scanner')scanner();else if(p=='report')report();else if(p=='event-report')eventReport();else if(p=='sale-report')saleReport();else if(p=='history')history();else if(p=='settings')settings();else home();}catch(err){console.error('Page render error:',err);APP.innerHTML=nav('home')+'<section class="card g" style="margin-top:12px"><h2>Event Ticket Page Error</h2><p>Please tap Event Ticket again.</p><button onclick="go(\'event\')">Open Event Ticket</button></section>';}window.scrollTo(0,0)}
+document.addEventListener('click',function(e){
+  const el=e.target.closest('[data-go]');
+  if(!el)return;
+  const p=el.getAttribute('data-go');
+  if(!p)return;
+  e.preventDefault();
+  location.hash='#'+p;
+  render();
+});
+window.addEventListener('hashchange',function(){render();window.scrollTo(0,0)});
+window.addEventListener('popstate',function(){render();window.scrollTo(0,0)});
+document.addEventListener('DOMContentLoaded',render);
+</script></body></html>
