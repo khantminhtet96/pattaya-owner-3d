@@ -1,4 +1,4 @@
-# LINE setup for v5.4
+# LINE setup for v5.5
 
 1. LINE Developers Console → create/select a LINE Login channel.
 2. Add a LIFF app.

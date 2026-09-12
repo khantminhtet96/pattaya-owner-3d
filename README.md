@@ -1,4 +1,4 @@
-# Pattaya Dinosaur Kingdom Owner v5.4
+# Pattaya Dinosaur Kingdom Owner v5.5
 
 LINE Event Report sharing uses the official LIFF Share Target Picker. It sends two LINE messages in one share action: an Image message followed by the Thai report Text message.
 
