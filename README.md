@@ -1,6 +1,15 @@
-# Pattaya Owner v5.1 — LINE Report Share
+# Pattaya Dinosaur Kingdom Owner v5.4
 
-- Event Report Share uploads the generated report image to the public Supabase `report-share` bucket and opens LINE's web share plugin with both the image URL and the report text.
-- No LIFF ID is required for the default LINE share flow.
-- Existing localStorage data is preserved; no `localStorage.clear()` is used.
-- Event price/quantity stepper and report date/location features are retained.
+LINE Event Report sharing uses the official LIFF Share Target Picker. It sends two LINE messages in one share action: an Image message followed by the Thai report Text message.
+
+Requirements:
+- Deploy this app over HTTPS.
+- Create a LINE Login LIFF app whose Endpoint URL is this production app URL.
+- Enable Share Target Picker in LINE Developers Console.
+- Put the LIFF ID in Settings → LINE Report Share.
+- Open the LIFF app in LINE before testing.
+
+Data safety:
+- Existing localStorage keys are preserved.
+- No localStorage.clear() or sessionStorage.clear() is used.
+- Use Backup Data before changing browser/device data.
